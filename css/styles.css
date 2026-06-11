@@ -1,0 +1,293 @@
+/* =============================================
+   Tactile Tic-Tac-Toe — Styles
+   ============================================= */
+
+/* CSS Custom Properties */
+:root {
+  --bg-page: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-cell: #334155;
+  --bg-cell-hover: #475569;
+  --accent-x: #38bdf8;
+  --accent-o: #f472b6;
+  --accent-win: #22c55e;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --radius: 12px;
+  --transition: 200ms ease;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* App Layout */
+.app {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Header */
+.header {
+  text-align: center;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.mode-toggle {
+  display: flex;
+  background: var(--bg-surface);
+  border-radius: var(--radius);
+  padding: 0.25rem;
+  gap: 0.25rem;
+}
+
+.mode-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 0.875rem;
+  border-radius: calc(var(--radius) - 4px);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.mode-btn.active {
+  background: var(--bg-cell);
+  color: var(--text-primary);
+}
+
+.mode-btn:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+.icon-btn {
+  appearance: none;
+  border: none;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.icon-btn:hover {
+  background: var(--bg-cell);
+  transform: scale(1.05);
+}
+
+/* Status Bar */
+.status-bar {
+  text-align: center;
+}
+
+.turn-indicator {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background: var(--bg-surface);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  transition: color var(--transition), background var(--transition);
+}
+
+.turn-indicator.x-turn {
+  color: var(--accent-x);
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.turn-indicator.o-turn {
+  color: var(--accent-o);
+  background: rgba(244, 114, 182, 0.12);
+}
+
+.turn-indicator.win {
+  color: var(--accent-win);
+  background: rgba(34, 197, 94, 0.12);
+}
+
+/* Board */
+.board-container {
+  display: flex;
+  justify-content: center;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.cell {
+  appearance: none;
+  border: none;
+  background: var(--bg-cell);
+  border-radius: var(--radius);
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: var(--shadow-sm);
+}
+
+.cell:hover:not(:disabled) {
+  background: var(--bg-cell-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.cell.x {
+  color: var(--accent-x);
+}
+
+.cell.o {
+  color: var(--accent-o);
+}
+
+.cell.win {
+  background: rgba(34, 197, 94, 0.25);
+  color: var(--accent-win);
+  animation: pulse 600ms ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+/* Scoreboard */
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.score {
+  background: var(--bg-surface);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition: transform var(--transition);
+}
+
+.score-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.score-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.x-score .score-value { color: var(--accent-x); }
+.o-score .score-value { color: var(--accent-o); }
+.draw-score .score-value { color: var(--text-secondary); }
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.reset-btn {
+  appearance: none;
+  border: none;
+  background: var(--bg-cell);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.reset-btn:hover {
+  background: var(--bg-cell-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.reset-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 360px) {
+  .title { font-size: 1.5rem; }
+  .board { gap: 0.5rem; }
+  .cell { border-radius: 8px; }
+}
