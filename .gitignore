@@ -1,2 +1,4 @@
 .vercel
 description.html
+.arena/
+node_modules/
